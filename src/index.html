@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <script type="module" src="./main.ts" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+        <div id="formContainer">
+            <form id="addMemberForm">
+            <h1>
+                Members
+            </h1>
+                <input type="text" id="memberName" placeholder="Add member" required>
+                <select id="memberRole" multiple required>
+                    <option value="UX Designer">UX Designer</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                </select>
+                <button type="submit" id="addMemberBtn">Add</button>
+            </form>
+        
+            <form id="addAssignmentForm">
+            <h1>
+                Assignment
+            </h1>
+                <input type="text" id="assignmentName" placeholder="Add assignment" required>
+                <textarea id="assignmentDescription" placeholder="Description" required></textarea>
+                <select id="assignmentRole" multiple required>
+                    <option value="UX Designer">UX Designer</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                </select>
+                <button type="submit" id="addAssingmentBtn">Add</button>
+            </form>
+        </div>
+    
+        <div class="board">
+            <div class="column">
+                <h2>To Do</h2>
+            </div>
+            <div class="column">
+                <h2>In Progress</h2>
+            </div>
+            <div class="column">
+                <h2>Done</h2>
+            </div>
+        </div>
+</body>
+
+</html>

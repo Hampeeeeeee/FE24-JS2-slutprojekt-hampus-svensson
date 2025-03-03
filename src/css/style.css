@@ -1,0 +1,169 @@
+*{
+    box-sizing: border-box;
+}
+
+/* Grundläggande styling för hela sidan */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* Formulärcontainer */
+#formContainer {
+    display: flex;
+    justify-content: space-between;  /* För att skapa mellanrum mellan formulären */
+    gap: 20px;  /* Justera detta gap för att ändra mellanrummet mellan formulären */
+    flex-wrap: wrap;  /* Gör så att formulären bryts till nästa rad på små skärmar */
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Styla varje formulär */
+#addMemberForm, #addAssignmentForm {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Rubrik */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Formulärfält */
+input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Fokusering på inputfält och select */
+input[type="text"]:focus, select:focus {
+    border-color: #4CAF50;  /* Green color for focus */
+    outline: none;
+}
+
+#assignmentDescription {
+    width: 100%;
+}
+
+/* Stilar för submit-knappen */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Ändra knappens färg vid hover */
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Styla multiselect */
+select[multiple] {
+    height: 120px;
+}
+
+/* Stilar för team-medlemmar */
+.team-member {
+    background: #e7f9e7;  /* Lighter green to maintain soft color tone */
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+/* Stilar för boarden och kolumner */
+.board {
+    display: flex;
+    gap: 30px;  /* Adjusting gap for more balanced look */
+    margin-top: 30px;
+    flex-wrap: wrap;  /* Allow items to wrap on small screens */
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Kolumnstilar */
+.column {
+    width: 220px;  /* Slightly larger columns for better visibility */
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Rubrik för varje kolumn */
+.column h2 {
+    text-align: center;
+    font-size: 20px;
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Responsiv design */
+@media (max-width: 768px) {
+    /* Formulärjustering för mellanstora skärmar */
+    #addMemberForm, #addAssignmentForm {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .board {
+        gap: 20px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Formulärjustering för små skärmar */
+    #addMemberForm, #addAssignmentForm {
+        width: 100%;
+        max-width: 350px;
+        margin-bottom: 20px;
+    }
+
+    /* För att säkerställa att teammedlemmarna och kolumnerna anpassar sig */
+    .team-member, .column {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .board {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
