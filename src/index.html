@@ -18,9 +18,9 @@
             </h1>
                 <input type="text" id="memberName" placeholder="Add member" required>
                 <select id="memberRole" multiple required>
-                    <option value="UX Designer">UX Designer</option>
-                    <option value="Frontend Developer">Frontend Developer</option>
-                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="UX">UX</option>
+                    <option value="Dev Frontend">Dev Frontend</option>
+                    <option value="Dev Backend">Dev Backend</option>
                 </select>
                 <button type="submit" id="addMemberBtn">Add</button>
             </form>
@@ -32,22 +32,22 @@
                 <input type="text" id="assignmentName" placeholder="Add assignment" required>
                 <textarea id="assignmentDescription" placeholder="Description" required></textarea>
                 <select id="assignmentRole" multiple required>
-                    <option value="UX Designer">UX Designer</option>
-                    <option value="Frontend Developer">Frontend Developer</option>
-                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="UX">UX</option>
+                    <option value="Dev Frontend">Dev Frontend</option>
+                    <option value="Dev Backend">Dev Backend</option>
                 </select>
                 <button type="submit" id="addAssingmentBtn">Add</button>
             </form>
         </div>
     
         <div class="board">
-            <div class="column">
+            <div class="column" id="todoContainer">
                 <h2>To Do</h2>
             </div>
-            <div class="column">
+            <div class="column" id="inProgressContainer">
                 <h2>In Progress</h2>
             </div>
-            <div class="column">
+            <div class="column" id="doneContainer">
                 <h2>Done</h2>
             </div>
         </div>

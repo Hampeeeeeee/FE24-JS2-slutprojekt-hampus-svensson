@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -20,16 +20,20 @@ body {
 /* Formulärcontainer */
 #formContainer {
     display: flex;
-    justify-content: space-between;  /* För att skapa mellanrum mellan formulären */
-    gap: 20px;  /* Justera detta gap för att ändra mellanrummet mellan formulären */
-    flex-wrap: wrap;  /* Gör så att formulären bryts till nästa rad på små skärmar */
+    justify-content: space-between;
+    /* För att skapa mellanrum mellan formulären */
+    gap: 20px;
+    /* Justera detta gap för att ändra mellanrummet mellan formulären */
+    flex-wrap: wrap;
+    /* Gör så att formulären bryts till nästa rad på små skärmar */
     margin-top: 20px;
     width: 100%;
     padding: 10px;
 }
 
 /* Styla varje formulär */
-#addMemberForm, #addAssignmentForm {
+#addMemberForm,
+#addAssignmentForm {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -48,7 +52,8 @@ h1 {
 }
 
 /* Formulärfält */
-input[type="text"], select {
+input[type="text"],
+select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -60,8 +65,10 @@ input[type="text"], select {
 }
 
 /* Fokusering på inputfält och select */
-input[type="text"]:focus, select:focus {
-    border-color: #4CAF50;  /* Green color for focus */
+input[type="text"]:focus,
+select:focus {
+    border-color: #4CAF50;
+    /* Green color for focus */
     outline: none;
 }
 
@@ -95,20 +102,24 @@ select[multiple] {
 
 /* Stilar för team-medlemmar */
 .team-member {
-    background: #e7f9e7;  /* Lighter green to maintain soft color tone */
+    background: #e7f9e7;
+    /* Lighter green to maintain soft color tone */
     padding: 12px;
     margin: 8px 0;
     border-radius: 8px;
     font-size: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
 }
 
 /* Stilar för boarden och kolumner */
 .board {
     display: flex;
-    gap: 30px;  /* Adjusting gap for more balanced look */
+    gap: 30px;
+    /* Adjusting gap for more balanced look */
     margin-top: 30px;
-    flex-wrap: wrap;  /* Allow items to wrap on small screens */
+    flex-wrap: wrap;
+    /* Allow items to wrap on small screens */
     justify-content: space-between;
     width: 100%;
     padding: 10px;
@@ -116,11 +127,13 @@ select[multiple] {
 
 /* Kolumnstilar */
 .column {
-    width: 220px;  /* Slightly larger columns for better visibility */
+    width: 250px;
+    /* Slightly larger columns for better visibility */
     background: white;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
 }
 
 /* Rubrik för varje kolumn */
@@ -134,10 +147,120 @@ select[multiple] {
     margin-bottom: 15px;
 }
 
+/* Grundläggande stil för varje uppgift */
+.assignment {
+    background-color: #f9f9f9;
+    /* Ljus bakgrundsfärg för uppgifterna */
+    border: 1px solid #ddd;
+    /* Tunn kant runt varje uppgift */
+    padding: 15px;
+    /* Lite inre marginal för att ge utrymme åt texten */
+    margin: 10px 0;
+    /* Marginaler mellan uppgifterna */
+    border-radius: 8px;
+    /* Rundade hörn för en mjukare look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Lätt skugga för att ge djup */
+}
+
+/* Stil för titeln på varje uppgift */
+.assignment h4 {
+    color: #333;
+    /* Mörkare textfärg för titeln */
+    font-size: 18px;
+    /* Större textstorlek för titeln */
+    margin-bottom: 8px;
+    /* Lite utrymme under titeln */
+}
+
+/* Stil för beskrivningen av uppgiften */
+.assignment p {
+    color: #555;
+    /* Lite ljusare textfärg för beskrivningen */
+    font-size: 14px;
+    /* Standard textstorlek för beskrivningen */
+    line-height: 1.5;
+    /* Öka radavståndet för bättre läsbarhet */
+    margin: 5px 0;
+    /* Litet mellanrum mellan olika textstycken */
+}
+
+#assignToBtn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#assignToBtn:hover {
+    background-color: #45a049;
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-content li {
+    margin: 10px 0;
+}
+
+.assign-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.assign-btn:hover {
+    background-color: #45a049;
+}
+
+.close-modal {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
 /* Responsiv design */
 @media (max-width: 768px) {
+
     /* Formulärjustering för mellanstora skärmar */
-    #addMemberForm, #addAssignmentForm {
+    #addMemberForm,
+    #addAssignmentForm {
         width: 100%;
         max-width: 450px;
     }
@@ -149,15 +272,18 @@ select[multiple] {
 }
 
 @media (max-width: 480px) {
+
     /* Formulärjustering för små skärmar */
-    #addMemberForm, #addAssignmentForm {
+    #addMemberForm,
+    #addAssignmentForm {
         width: 100%;
         max-width: 350px;
         margin-bottom: 20px;
     }
 
     /* För att säkerställa att teammedlemmarna och kolumnerna anpassar sig */
-    .team-member, .column {
+    .team-member,
+    .column {
         width: 100%;
         margin: 10px 0;
     }
