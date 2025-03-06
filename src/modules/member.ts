@@ -75,9 +75,13 @@ async function getMembers(): Promise<Member[]> {
 
 // Funktion för att visa en modal med alla medlemmar som kan tilldelas
 function showMemberSelectionModal(matchingMembers: Member[], taskCategory: string, button: HTMLButtonElement) {
+    
+    if (button.textContent === "Done") {
+        return; // Stoppar funktionen om knappen redan är "Done"
+    }
+    
     // Skapa modalens HTML
     const modal = document.createElement('div');
-    modal.classList.add('modal');
     modal.classList.add('modal');
     modal.innerHTML = `
         <div class="modal-content">
@@ -106,6 +110,52 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
         assignButton.addEventListener('click', () => {
             const selectedMember = matchingMembers[index];
             alert(`Task assigned to ${selectedMember.name} (${selectedMember.role})`);
+
+            const taskElement = button.closest('.assignment');
+            if (taskElement) {
+                const inProgressContainer = document.getElementById('inProgressContainer');
+                if (inProgressContainer) {
+                    inProgressContainer.appendChild(taskElement); // Lägg till uppgiften i "In Progress"
+
+                    // Lägg till text som visar vem uppgiften är tilldelad till
+                    const assignedToElement = document.createElement('p');
+                    assignedToElement.textContent = `Assigned to: ${selectedMember.name}`;
+
+                    const date = new Date();
+                    const formattedDate = date.toLocaleString('sv-SE');
+
+                    let timestampElement = taskElement.querySelector('h5');
+                    if (timestampElement) {
+                        timestampElement.textContent = formattedDate; // Uppdatera den ursprungliga tidsstämpeln
+                    }
+                    else {
+                        // Om inget h5-element finns, skapa ett nytt
+                        timestampElement = document.createElement('h5');
+                        timestampElement.textContent = `Assigned on: ${formattedDate}`;
+                        taskElement.appendChild(timestampElement); // Lägg till den nya tidsstämpeln
+                    }
+
+                    taskElement.insertBefore(assignedToElement, taskElement.querySelector('button'));
+                    taskElement.insertBefore(timestampElement, assignedToElement.nextSibling);
+
+                    const assignButton = taskElement.querySelector('#assignToBtn') as HTMLButtonElement;
+                    if (assignButton) {
+                        assignButton.textContent = 'Done';
+
+                        assignButton.addEventListener('click', () => {
+                            // Hantera när uppgiften markeras som klar
+                            taskElement.classList.add('done'); // Lägg till en "done"-klass för att visa att uppgiften är klar
+
+                            // Flytta uppgiften till "Done" om det är önskvärt
+                            const doneContainer = document.getElementById('doneContainer');
+                            if (doneContainer) {
+                                doneContainer.appendChild(taskElement); // Flytta uppgiften till "Done"-sektionen
+                            }
+                        }
+                    )};
+                }
+                inProgressContainer?.appendChild(taskElement); // Lägg till uppgiften i "In Progress"
+            }
 
             if (modal.parentElement) {
                 modal.parentElement.removeChild(modal); // Stäng modalen

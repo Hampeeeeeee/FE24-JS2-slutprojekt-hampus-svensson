@@ -209,6 +209,7 @@ select[multiple] {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -253,6 +254,11 @@ select[multiple] {
     cursor: pointer;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+.done {
+    background-color: #d3ffd3; /* En ljusgrön bakgrund för att markera att uppgiften är klar */
+    text-decoration: line-through; /* Slå över texten för att visa att uppgiften är slutförd */
 }
 
 /* Responsiv design */

@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <h5>${formattedDate}</h5>
                     <button id="assignToBtn">Assign to</button>
                 `;
+                
+                // Lägg till uppgiften i todo-container
+                const todoContainer = document.getElementById('todoContainer')
+                todoContainer?.appendChild(taskElement);
 
                 const assignToBtn = taskElement.querySelector('#assignToBtn') as HTMLButtonElement | null;
                 if (assignToBtn) {
@@ -54,9 +58,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     });
                 }
 
-                // Lägg till uppgiften i todo-container
-                const todoContainer = document.getElementById('todoContainer')
-                todoContainer?.appendChild(taskElement);
             });
         }
     } catch (error) {
