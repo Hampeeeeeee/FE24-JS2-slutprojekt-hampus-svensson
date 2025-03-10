@@ -109,7 +109,7 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
     assignButtons.forEach((assignButton, index) => {
         assignButton.addEventListener('click', () => {
             const selectedMember = matchingMembers[index];
-            alert(`Task assigned to ${selectedMember.name} (${selectedMember.role})`);
+            // alert(`Task assigned to ${selectedMember.name} (${selectedMember.role})`);
 
             const taskElement = button.closest('.assignment');
             if (taskElement) {
@@ -151,12 +151,23 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
                             if (doneContainer) {
                                 doneContainer.appendChild(taskElement); // Flytta uppgiften till "Done"-sektionen
                             }
+
+                            assignButton.textContent = 'Delete';
+
+                            assignButton.addEventListener('click', () => {
+                                // Ta bort uppgiften från doneContainer
+                                if (doneContainer) {
+                                    doneContainer.removeChild(taskElement);
+                                }
+                                
+                                if (modal.parentElement) {
+                                    modal.parentElement.removeChild(modal); // Stäng modalen
+                                }
+                            });
                         }
                     )};
                 }
-                inProgressContainer?.appendChild(taskElement); // Lägg till uppgiften i "In Progress"
             }
-
             if (modal.parentElement) {
                 modal.parentElement.removeChild(modal); // Stäng modalen
             }
@@ -178,7 +189,10 @@ export async function assignTaskToMember(role: string, taskCategory: string, but
     const matchingMembers = members.filter(m => m.role === role);
 
     if (matchingMembers.length > 0) {
-        showMemberSelectionModal(matchingMembers, taskCategory, button); // Visa en modal med medlemmarna
+        if (button.textContent === 'Assign to'){
+            showMemberSelectionModal(matchingMembers, taskCategory, button); // Visa en modal med medlemmarna
+            button.textContent = 'Done';
+        }
     } else {
         alert('No member found for this role.');
     }

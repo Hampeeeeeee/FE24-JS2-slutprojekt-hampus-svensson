@@ -203,7 +203,6 @@ select[multiple] {
 }
 
 #modal {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -259,6 +258,18 @@ select[multiple] {
 .done {
     background-color: #d3ffd3; /* En ljusgrön bakgrund för att markera att uppgiften är klar */
     text-decoration: line-through; /* Slå över texten för att visa att uppgiften är slutförd */
+}
+
+.red-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.red-button:hover {
+    background-color: darkred;
 }
 
 /* Responsiv design */
