@@ -1,3 +1,4 @@
+import { filterByMember, filterByCategory } from './filter';
 const base_url: string = "https://fe24-js2-slutprojekt-hampus-default-rtdb.europe-west1.firebasedatabase.app/";
 
 export interface Assignment {
@@ -9,17 +10,27 @@ export interface Assignment {
     timestamp: number
 }
 
-export async function fetchAssignments(sortType: string = 'timestampDesc'): Promise<void> {
+export async function fetchAssignments(sortType: string = 'timestampDesc', memberFilter?: string, categoryFilter?: string): Promise<void> {
     const url = base_url + 'assignments.json';
     try {
         const res = await fetch(url);
         const assignments = await res.json();
-        
-        const assignmentsArray: Assignment[] = Object.values(assignments);
-        const assignedAssignments = assignmentsArray.filter(assignment => assignment.assigned !== undefined);
 
-        // Rendera de sorterade uppgifterna utan att skapa nya DOM-element
-        renderAssignments(assignedAssignments);
+        const assignmentsArray: Assignment[] = Object.values(assignments);
+
+        // Filtrera baserat på medlem
+        let filteredAssignments = assignmentsArray;
+        if (memberFilter) {
+            filteredAssignments = filterByMember(filteredAssignments, memberFilter);
+        }
+
+        // Filtrera baserat på kategori
+        if (categoryFilter) {
+            filteredAssignments = filterByCategory(filteredAssignments, categoryFilter);
+        }
+
+        // Rendera de filtrerade uppgifterna
+        renderAssignments(filteredAssignments);
 
     } catch (error) {
         console.error("Error fetching assignments:", error);

@@ -12,27 +12,45 @@
 
 <body>
     <div id="container">
-
         <header id="header">
-            <div id="selectFormDivSort">
-                <div id="sortTimeDiv">
-                    <label id="sortByTimestamp">Sort by time:</label>
-                    <select name="timestampSorting" id="timestampSorting">
-                        <option disabled="disabled" selected>Sort by time</option>
-                        <option value="asc">Oldest to newest</option>
-                        <option value="desc">Newest to oldest</option>
-                    </select>
+                <div id="sortAndFilterDiv">
+                <div id="selectFormDivSort">
+                    <div id="sortTimeDiv">
+                        <label id="sortByTimestamp">Sort by time:</label>
+                        <select name="timestampSorting" id="timestampSorting">
+                            <option disabled="disabled" selected>Sort by time</option>
+                            <option value="asc">Oldest to newest</option>
+                            <option value="desc">Newest to oldest</option>
+                        </select>
+                    </div>
+                    <div id="sortByTitleDiv">
+                        <label id="sortByTitle">Sort by title:</label>
+                        <select name="titleSorting" id="titleSorting">
+                            <option disabled="disabled" selected>Sort by Title</option>
+                            <option value="titleAsc">A-Z</option>
+                            <option value="titleDesc">Z-A</option>
+                        </select>
+                    </div>
                 </div>
-                <div id="sortByTitleDiv">
-                    <label id="sortByTitle">Sort by Title:</label>
-                    <select name="titleSorting" id="titleSorting">
-                        <option disabled="disabled" selected>Sort by Title</option>
-                        <option value="titleAsc">A-Z</option>
-                        <option value="titleDesc">Z-A</option>
-                    </select>
+                <div id="selectFormDivFilter">
+                    <div id="filterCategoryDiv">
+                        <label id="filterByCategory">Filter by category:</label>
+                        <select name="categoryFilter" id="categoryFilter">
+                            <option disabled="disabled" selected>Filter by category</option>
+                            <option value="UX">UX</option>
+                            <option value="Dev Frontend">Dev Frontend</option>
+                            <option value="Dev Backend">Dev Backend</option>
+                        </select>
+                    </div>
+                    <div id="filterMemberDiv">
+                        <label id="filterByMember">Filter by member:</label>
+                        <select name="memberFilter" id="memberFilter">
+                            <option disabled="disabled" selected>Filter by member</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </header>
+            </header>
         <div id="formContainer">
             <form id="addMemberForm">
                 <h1>
