@@ -1,7 +1,7 @@
 import { addMember } from "./modules/member.ts";
 import { addAssignment } from "./modules/assignment.ts";
 import { getAllTasks } from "./modules/render.ts";
-import { assignTaskToMember } from "./modules/member.ts";
+import { assignTaskToMember, getMembers } from "./modules/member.ts";
 import { sortByTimestamp, sortByTitle } from "./modules/sorting.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -83,6 +83,26 @@ document.querySelector('#titleSorting')?.addEventListener('change', (event) => {
         sortByTitle('titleDesc');
     }
 });
+
+// Funktion för att fylla i memberFilter med medlemmar från Firebase
+async function populateMemberFilter() {
+    const memberFilter = document.querySelector('#memberFilter') as HTMLSelectElement;
+
+    try {
+        const members = await getMembers(); // Hämta medlemmar från Firebase
+        // Skapa en option för varje medlem
+        members.forEach((member) => {
+            const option = document.createElement('option');
+            option.value = member.name; // Sätt värdet som medlemmens namn
+            option.textContent = member.name; // Visa medlemmens namn
+            memberFilter.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error populating member filter:', error);
+    }
+}
+// Anropa den här funktionen när sidan är färdigladdad
+document.addEventListener('DOMContentLoaded', populateMemberFilter);
 
 
 

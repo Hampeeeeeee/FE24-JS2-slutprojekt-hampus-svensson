@@ -56,7 +56,7 @@ export async function addMember(event: Event): Promise<void> {
 }
 
 // Funktion för att hämta medlemmar från Firebase Realtime Database
-async function getMembers(): Promise<Member[]> {
+export async function getMembers(): Promise<Member[]> {
     const url = 'https://fe24-js2-slutprojekt-hampus-default-rtdb.europe-west1.firebasedatabase.app/members.json';
 
     try {
