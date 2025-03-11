@@ -2,6 +2,7 @@ import { addMember } from "./modules/member.ts";
 import { addAssignment } from "./modules/assignment.ts";
 import { getAllTasks } from "./modules/render.ts";
 import { assignTaskToMember } from "./modules/member.ts";
+import { sortByTimestamp, sortByTitle } from "./modules/sorting.ts";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Skapa en div för varje uppgift
                 const taskElement = document.createElement('div');
                 taskElement.classList.add('assignment');
+                taskElement.setAttribute('data-timestamp', task.timestamp.toString()); // Lägg till data-timestamp
 
                 const timestamp = task.timestamp;
                 const date = new Date(timestamp);
@@ -48,8 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
                 
                 // Lägg till uppgiften i todo-container
-                const todoContainer = document.getElementById('todoContainer')
-                todoContainer?.appendChild(taskElement);
+                todoContainer.appendChild(taskElement);
 
                 const assignToBtn = taskElement.querySelector('#assignToBtn') as HTMLButtonElement | null;
                 if (assignToBtn) {
@@ -64,3 +65,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Error displaying assignments:', error);
     }
 });
+
+document.querySelector('#timestampSorting')?.addEventListener('change', (event) => {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue === 'asc') {
+        sortByTimestamp('oldestToNewest');
+    } else if (selectedValue === 'desc') {
+        sortByTimestamp('newestToOldest');
+    }
+});
+
+document.querySelector('#titleSorting')?.addEventListener('change', (event) => {
+    const selectedValue = (event.target as HTMLSelectElement).value;
+    if (selectedValue === 'titleAsc') {
+        sortByTitle('titleAsc');
+    } else if (selectedValue === 'titleDesc') {
+        sortByTitle('titleDesc');
+    }
+});
+
+
+
+
+
+

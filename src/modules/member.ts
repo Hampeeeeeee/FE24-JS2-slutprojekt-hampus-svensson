@@ -5,6 +5,7 @@ interface Member {
     role: string;
 }
 
+
 export async function addMember(event: Event): Promise<void> {
     event.preventDefault();
 
@@ -121,22 +122,22 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
                     const assignedToElement = document.createElement('p');
                     assignedToElement.textContent = `Assigned to: ${selectedMember.name}`;
 
-                    const date = new Date();
-                    const formattedDate = date.toLocaleString('sv-SE');
+                    // const date = new Date();
+                    // const formattedDate = date.toLocaleString('sv-SE');
 
-                    let timestampElement = taskElement.querySelector('h5');
-                    if (timestampElement) {
-                        timestampElement.textContent = formattedDate; // Uppdatera den ursprungliga tidsstämpeln
-                    }
-                    else {
-                        // Om inget h5-element finns, skapa ett nytt
-                        timestampElement = document.createElement('h5');
-                        timestampElement.textContent = `Assigned on: ${formattedDate}`;
-                        taskElement.appendChild(timestampElement); // Lägg till den nya tidsstämpeln
-                    }
+                    // let timestampElement = taskElement.querySelector('h5');
+                    // if (timestampElement) {
+                    //     timestampElement.textContent = formattedDate; // Uppdatera den ursprungliga tidsstämpeln
+                    // }
+                    // else {
+                    //     // Om inget h5-element finns, skapa ett nytt
+                    //     timestampElement = document.createElement('h5');
+                    //     timestampElement.textContent = `Assigned on: ${formattedDate}`;
+                    //     taskElement.appendChild(timestampElement); // Lägg till den nya tidsstämpeln
+                    // }
 
                     taskElement.insertBefore(assignedToElement, taskElement.querySelector('button'));
-                    taskElement.insertBefore(timestampElement, assignedToElement.nextSibling);
+                    // taskElement.insertBefore(timestampElement, assignedToElement.nextSibling);
 
                     const assignButton = taskElement.querySelector('#assignToBtn') as HTMLButtonElement;
                     if (assignButton) {

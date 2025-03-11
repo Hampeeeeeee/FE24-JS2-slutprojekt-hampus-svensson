@@ -11,11 +11,33 @@
 </head>
 
 <body>
+    <div id="container">
+
+        <header id="header">
+            <div id="selectFormDivSort">
+                <div id="sortTimeDiv">
+                    <label id="sortByTimestamp">Sort by time:</label>
+                    <select name="timestampSorting" id="timestampSorting">
+                        <option disabled="disabled" selected>Sort by time</option>
+                        <option value="asc">Oldest to newest</option>
+                        <option value="desc">Newest to oldest</option>
+                    </select>
+                </div>
+                <div id="sortByTitleDiv">
+                    <label id="sortByTitle">Sort by Title:</label>
+                    <select name="titleSorting" id="titleSorting">
+                        <option disabled="disabled" selected>Sort by Title</option>
+                        <option value="titleAsc">A-Z</option>
+                        <option value="titleDesc">Z-A</option>
+                    </select>
+                </div>
+            </div>
+        </header>
         <div id="formContainer">
             <form id="addMemberForm">
-            <h1>
-                Members
-            </h1>
+                <h1>
+                    Members
+                </h1>
                 <input type="text" id="memberName" placeholder="Add member" required>
                 <select id="memberRole" multiple required>
                     <option value="UX">UX</option>
@@ -24,11 +46,11 @@
                 </select>
                 <button type="submit" id="addMemberBtn">Add</button>
             </form>
-        
+    
             <form id="addAssignmentForm">
-            <h1>
-                Assignment
-            </h1>
+                <h1>
+                    Assignment
+                </h1>
                 <input type="text" id="assignmentName" placeholder="Add assignment" required>
                 <textarea id="assignmentDescription" placeholder="Description" required></textarea>
                 <select id="assignmentRole" multiple required>
@@ -51,6 +73,7 @@
                 <h2>Done</h2>
             </div>
         </div>
+    </div>
 </body>
 
 </html>
