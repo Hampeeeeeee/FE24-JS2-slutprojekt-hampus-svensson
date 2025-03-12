@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const tasks = await getAllTasks(); // Hämta alla tasks
 
-        const todoContainer = document.getElementById('todoContainer'); // Din container
+        const todoContainer = document.getElementById('todoContainer');
         if (todoContainer) {
             // Loopa igenom alla tasks och skapa HTML för varje
             Object.keys(tasks).forEach(taskId => {
