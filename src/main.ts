@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Lägg till eventlistener på formuläret när DOM är klar
     const assignmentform = document.querySelector('#addAssignmentForm') as HTMLFormElement;
 
     if (assignmentform) {
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Skapa en div för varje uppgift
                 const taskElement = document.createElement('div');
                 taskElement.classList.add('assignment');
-                taskElement.setAttribute('data-timestamp', task.timestamp.toString()); // Lägg till data-timestamp
+                taskElement.setAttribute('data-timestamp', task.timestamp.toString());
 
                 const timestamp = task.timestamp;
                 const date = new Date(timestamp);
@@ -49,13 +48,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <button id="assignToBtn">Assign to</button>
                 `;
                 
-                // Lägg till uppgiften i todo-container
                 todoContainer.appendChild(taskElement);
 
                 const assignToBtn = taskElement.querySelector('#assignToBtn') as HTMLButtonElement | null;
                 if (assignToBtn) {
                     assignToBtn.addEventListener('click', () => {
-                        assignTaskToMember(task.category, task.category, assignToBtn); // Tilldela uppgift baserat på kategori
+                        assignTaskToMember(task.category, task.category, assignToBtn);
                     });
                 }
 
@@ -84,24 +82,23 @@ document.querySelector('#titleSorting')?.addEventListener('change', (event) => {
     }
 });
 
-// Funktion för att fylla i memberFilter med medlemmar från Firebase
 async function populateMemberFilter() {
     const memberFilter = document.querySelector('#memberFilter') as HTMLSelectElement;
 
     try {
-        const members = await getMembers(); // Hämta medlemmar från Firebase
-        // Skapa en option för varje medlem
+        const members = await getMembers();
+        
         members.forEach((member) => {
             const option = document.createElement('option');
-            option.value = member.name; // Sätt värdet som medlemmens namn
-            option.textContent = member.name; // Visa medlemmens namn
+            option.value = member.name; 
+            option.textContent = member.name;
             memberFilter.appendChild(option);
         });
     } catch (error) {
         console.error('Error populating member filter:', error);
     }
 }
-// Anropa den här funktionen när sidan är färdigladdad
+
 document.addEventListener('DOMContentLoaded', populateMemberFilter);
 
 

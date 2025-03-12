@@ -10,7 +10,7 @@ export interface Assignment {
     timestamp: number
 }
 
-export async function fetchAssignments(sortType: string = 'timestampDesc', memberFilter?: string, categoryFilter?: string): Promise<void> {
+export async function fetchAssignments(memberFilter?: string, categoryFilter?: string): Promise<void> {
     const url = base_url + 'assignments.json';
     try {
         const res = await fetch(url);
