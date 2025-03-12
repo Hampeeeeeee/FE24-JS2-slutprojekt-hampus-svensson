@@ -53,7 +53,7 @@ export async function addAssignment(event: Event): Promise<void> {
         title: title,
         description: description,
         category: category,
-        status: "New",
+        status: "new",
         timestamp: Date.now(),
     };
 
