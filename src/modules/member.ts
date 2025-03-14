@@ -1,3 +1,8 @@
+// Funktioner som hanterar allt som har med members att göra. Lägga till member, hämta members, visa modal med
+// members som kan bli tilldelade uppgifter, och slutligen lägga till member till en uppgift.
+
+import { renderAllTasks } from "./render.ts";
+
 const base_url: string = "https://fe24-js2-slutprojekt-hampus-default-rtdb.europe-west1.firebasedatabase.app/";
 
 interface Member {
@@ -12,9 +17,8 @@ export async function addMember(event: Event): Promise<void> {
     const name: string = (document.querySelector('#memberName') as HTMLInputElement).value.trim();
     const rolesSelect: HTMLSelectElement = document.querySelector('#memberRole') as HTMLSelectElement;
 
-    const selectedRole = rolesSelect.value;  // "value" ger oss den valda rollen som en sträng
+    const selectedRole = rolesSelect.value;  // "value" ger oss valda rollen som en sträng
 
-    // Validering: Kontrollera om namn är ifyllt och att en roll är vald
     if (!name || !selectedRole) {
         alert("Vänligen fyll i ett namn och välj en roll.");
         return;
@@ -22,7 +26,7 @@ export async function addMember(event: Event): Promise<void> {
 
     const memberData = {
         name: name,
-        role: selectedRole  // Här lagrar vi den valda rollen som en sträng
+        role: selectedRole  // Här lagras den valda rollen som en sträng
     };
 
     const url = base_url + '/members.json';
@@ -75,12 +79,12 @@ export async function getMembers(): Promise<Member[]> {
 }
 
 // Funktion för att visa en modal med alla medlemmar som kan tilldelas
-function showMemberSelectionModal(matchingMembers: Member[], taskCategory: string, button: HTMLButtonElement) {
-    
+export function showMemberSelectionModal(matchingMembers: Member[], taskCategory: string, button: HTMLButtonElement, taskId: string) {
+
     if (button.textContent === "Done") {
         return; // Stoppar funktionen om knappen redan är "Done"
     }
-    
+
     // Skapa modalens HTML
     const modal = document.createElement('div');
     modal.classList.add('modal');
@@ -108,44 +112,45 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
 
     const assignButtons = modal.querySelectorAll('.assign-btn');
     assignButtons.forEach((assignButton, index) => {
-        assignButton.addEventListener('click', () => {
+        assignButton.addEventListener('click', async() => {
             const selectedMember = matchingMembers[index];
-            // alert(`Task assigned to ${selectedMember.name} (${selectedMember.role})`);
+
+            const url = `https://fe24-js2-slutprojekt-hampus-default-rtdb.europe-west1.firebasedatabase.app/assignments/${taskId}.json`;
+
+            const inProgressTask = {
+                status: 'in progress',
+                assigned: selectedMember.name,
+            }
+            const options = {
+                method: "PATCH",
+                body: JSON.stringify(inProgressTask),
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                }
+            };
+            try {
+                const response = await fetch(url, options);
+                if (response.ok) {
+                    console.log("Task status updated to in progress");
+                    renderAllTasks();
+                } else {
+                    console.error('Failed to update task status');
+                }
+            } catch (error) {
+                console.error('Error while updating task status:', error);
+            }
 
             const taskElement = button.closest('.assignment');
             if (taskElement) {
                 const inProgressContainer = document.getElementById('inProgressContainer');
                 if (inProgressContainer) {
-                    inProgressContainer.appendChild(taskElement); // Lägg till uppgiften i "In Progress"
-
-                    // Lägg till text som visar vem uppgiften är tilldelad till
-                    const assignedToElement = document.createElement('p');
-                    assignedToElement.textContent = `Assigned to: ${selectedMember.name}`;
-
-                    // const date = new Date();
-                    // const formattedDate = date.toLocaleString('sv-SE');
-
-                    // let timestampElement = taskElement.querySelector('h5');
-                    // if (timestampElement) {
-                    //     timestampElement.textContent = formattedDate; // Uppdatera den ursprungliga tidsstämpeln
-                    // }
-                    // else {
-                    //     // Om inget h5-element finns, skapa ett nytt
-                    //     timestampElement = document.createElement('h5');
-                    //     timestampElement.textContent = `Assigned on: ${formattedDate}`;
-                    //     taskElement.appendChild(timestampElement); // Lägg till den nya tidsstämpeln
-                    // }
-
-                    taskElement.insertBefore(assignedToElement, taskElement.querySelector('button'));
-                    // taskElement.insertBefore(timestampElement, assignedToElement.nextSibling);
-
+                    inProgressContainer.appendChild(taskElement);
+                    
                     const assignButton = taskElement.querySelector('#assignToBtn') as HTMLButtonElement;
                     if (assignButton) {
-                        assignButton.textContent = 'Done';
+                        // assignButton.textContent = 'Done';
 
                         assignButton.addEventListener('click', () => {
-                            // Hantera när uppgiften markeras som klar
-                            taskElement.classList.add('done'); // Lägg till en "done"-klass för att visa att uppgiften är klar
 
                             // Flytta uppgiften till "Done" om det är önskvärt
                             const doneContainer = document.getElementById('doneContainer');
@@ -153,20 +158,19 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
                                 doneContainer.appendChild(taskElement); // Flytta uppgiften till "Done"-sektionen
                             }
 
-                            assignButton.textContent = 'Delete';
-
                             assignButton.addEventListener('click', () => {
                                 // Ta bort uppgiften från doneContainer
                                 if (doneContainer) {
                                     doneContainer.removeChild(taskElement);
                                 }
-                                
+
                                 if (modal.parentElement) {
                                     modal.parentElement.removeChild(modal); // Stäng modalen
                                 }
                             });
                         }
-                    )};
+                        )
+                    };
                 }
             }
             if (modal.parentElement) {
@@ -183,18 +187,11 @@ function showMemberSelectionModal(matchingMembers: Member[], taskCategory: strin
     });
 }
 
-export async function assignTaskToMember(role: string, taskCategory: string, button: HTMLButtonElement) {
+export async function assignTaskToMember(role: string, taskCategory: string, button: HTMLButtonElement, taskId: string) {
     const members = await getMembers(); // Hämta medlemmarna från Firebase
 
     // Hitta alla medlemmar som har samma roll
     const matchingMembers = members.filter(m => m.role === role);
+    showMemberSelectionModal(matchingMembers, taskCategory, button, taskId); // Visa en modal med medlemmarna
 
-    if (matchingMembers.length > 0) {
-        if (button.textContent === 'Assign to'){
-            showMemberSelectionModal(matchingMembers, taskCategory, button); // Visa en modal med medlemmarna
-            button.textContent = 'Done';
-        }
-    } else {
-        alert('No member found for this role.');
-    }
 }

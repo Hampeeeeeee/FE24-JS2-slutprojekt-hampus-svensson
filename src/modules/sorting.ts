@@ -1,9 +1,11 @@
 
+// Funktioner som sorterar inProgressContainer på timestamp och bokstavsordning på titeln.
+
 // Funktion som sorterar DOM-element baserat på Timestamp
 function sortByTimestamp(order: 'oldestToNewest' | 'newestToOldest'): void {
     const container = document.querySelector('#inProgressContainer');
     if (!container) return;
-
+    
     // Hämta alla uppgiftselement i containern
     const assignmentElements = Array.from(container.querySelectorAll('.assignment')) as HTMLElement[];
 

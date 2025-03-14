@@ -1,40 +1,15 @@
-import { filterByMember, filterByCategory } from './filter';
+// Allt som har med assignment och göra. Hämta assignments, läggs till assignments, och render assignments.
+
 const base_url: string = "https://fe24-js2-slutprojekt-hampus-default-rtdb.europe-west1.firebasedatabase.app/";
 
 export interface Assignment {
+    id?: string,
     title: string,
     description: string,
     category: string,
-    status: string,
-    assigned?: undefined | string,
+    status: "new" | "in progress" | "done",
+    assigned: string | undefined,
     timestamp: number
-}
-
-export async function fetchAssignments(memberFilter?: string, categoryFilter?: string): Promise<void> {
-    const url = base_url + 'assignments.json';
-    try {
-        const res = await fetch(url);
-        const assignments = await res.json();
-
-        const assignmentsArray: Assignment[] = Object.values(assignments);
-
-        // Filtrera baserat på medlem
-        let filteredAssignments = assignmentsArray;
-        if (memberFilter) {
-            filteredAssignments = filterByMember(filteredAssignments, memberFilter);
-        }
-
-        // Filtrera baserat på kategori
-        if (categoryFilter) {
-            filteredAssignments = filterByCategory(filteredAssignments, categoryFilter);
-        }
-
-        // Rendera de filtrerade uppgifterna
-        renderAssignments(filteredAssignments);
-
-    } catch (error) {
-        console.error("Error fetching assignments:", error);
-    }
 }
 
 export async function addAssignment(event: Event): Promise<void> {
@@ -54,6 +29,7 @@ export async function addAssignment(event: Event): Promise<void> {
         description: description,
         category: category,
         status: "new",
+        assigned: undefined,
         timestamp: Date.now(),
     };
 
@@ -81,80 +57,9 @@ export async function addAssignment(event: Event): Promise<void> {
         (document.querySelector("#assignmentDescription") as HTMLTextAreaElement).value = "";
         (document.querySelector("#assignmentRole") as HTMLSelectElement).selectedIndex = 0;
 
-        // Hämta och rendera alla uppgifter efter att den nya har lagts till
-        fetchAssignments();
     } catch (error) {
         console.error("Error:", error);
         alert("Could not add assignment, try again!");
     }
-}
-
-// function sortAssignments(assignments: Assignment[], sortType: string): Assignment[] {
-//     switch (sortType) {
-//         case 'timestampDesc':
-//             return assignments.sort((a, b) => b.timestamp - a.timestamp);
-//         case 'timestampAsc':
-//             return assignments.sort((a, b) => a.timestamp - b.timestamp);
-//         case 'titleAsc':
-//             return assignments.sort((a, b) => a.title.localeCompare(b.title));
-//         case 'titleDesc':
-//             return assignments.sort((a, b) => b.title.localeCompare(a.title));
-//         default:
-//             return assignments;
-//     }
-// }
-
-function renderAssignments(assignments: Assignment[]): void {
-        
-
-    const container = document.querySelector('#inProgressContainer');
-    if (!container) return;
-
-    // Här kan vi också logga uppgifter som ska renderas
-    console.log(assignments);
-
-    // Sortera uppgifterna baserat på det valda sorteringsalternativet
-    // const sortedAssignments = sortAssignments(assignments, sortType);
-
-    // // Hämta alla befintliga uppgiftselement i DOM:en
-    // const assignmentElements = Array.from(container.querySelectorAll('.assignment')) as HTMLElement[];
-
-    // sortedAssignments.forEach((assignment) => {
-    //     let element = assignmentElements.find(el => el.id === `assignment-${assignment.timestamp}`);
-        
-    //     if (!element) {
-    //         // Om det inte finns något element, skapa det
-    //         element = document.createElement('div');
-    //         element.classList.add('assignment');
-    //         element.id = `assignment-${assignment.timestamp}`;
-
-    //         // Lägg till data-timestamp som en numerisk tidsstämpel
-    //         element.setAttribute('data-timestamp', String(assignment.timestamp));
-
-    //         // Lägg till uppgiftens information
-    //         element.innerHTML = `
-    //             <h3>${assignment.title}</h3>
-    //             <p>${assignment.description}</p>
-    //             <p>Category: ${assignment.category}</p>
-    //             <p>Status: ${assignment.status}</p>
-    //             <p>Assigned to: ${assignment.assigned || 'Not assigned'}</p>
-    //             <p>Timestamp: ${new Date(assignment.timestamp).toLocaleString()}</p>
-    //             <button class="assign-to-btn">Assign to</button>
-    //         `;
-
-    //         container.appendChild(element);
-    //     } else {
-    //         // Uppdatera elementet om det redan finns
-    //         element.innerHTML = `
-    //             <h3>${assignment.title}</h3>
-    //             <p>${assignment.description}</p>
-    //             <p>Category: ${assignment.category}</p>
-    //             <p>Status: ${assignment.status}</p>
-    //             <p>Assigned to: ${assignment.assigned || 'Not assigned'}</p>
-    //             <p>Timestamp: ${new Date(assignment.timestamp).toLocaleString()}</p>
-    //             <button class="assign-to-btn">Assign to</button>
-    //         `;
-    //     }
-    // });
 }
 
