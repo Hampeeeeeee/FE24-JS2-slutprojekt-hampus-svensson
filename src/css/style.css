@@ -137,23 +137,19 @@ select[multiple] {
 /* Stilar för team-medlemmar */
 .team-member {
     background: #e7f9e7;
-    /* Lighter green to maintain soft color tone */
     padding: 12px;
     margin: 8px 0;
     border-radius: 8px;
     font-size: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Soft shadow */
 }
 
 /* Stilar för boarden och kolumner */
 .board {
     display: flex;
     gap: 30px;
-    /* Adjusting gap for more balanced look */
     margin-top: 30px;
     flex-wrap: wrap;
-    /* Allow items to wrap on small screens */
     justify-content: space-between;
     width: 100%;
     padding: 10px;
@@ -162,7 +158,6 @@ select[multiple] {
 /* Kolumnstilar */
 .column {
     width: 250px;
-    /* Slightly larger columns for better visibility */
     background: white;
     padding: 15px;
     border-radius: 10px;
@@ -184,42 +179,27 @@ select[multiple] {
 /* Grundläggande stil för varje uppgift */
 .assignment {
     background-color: #f9f9f9;
-    /* Ljus bakgrundsfärg för uppgifterna */
     border: 1px solid #ddd;
-    /* Tunn kant runt varje uppgift */
     padding: 15px;
-    /* Lite inre marginal för att ge utrymme åt texten */
     margin: 10px 0;
-    /* Marginaler mellan uppgifterna */
     border-radius: 8px;
-    /* Rundade hörn för en mjukare look */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Lätt skugga för att ge djup */
 }
 
-/* Stil för titeln på varje uppgift */
 .assignment h4 {
     color: #333;
-    /* Mörkare textfärg för titeln */
     font-size: 18px;
-    /* Större textstorlek för titeln */
     margin-bottom: 8px;
-    /* Lite utrymme under titeln */
 }
 
-/* Stil för beskrivningen av uppgiften */
 .assignment p {
     color: #555;
-    /* Lite ljusare textfärg för beskrivningen */
     font-size: 14px;
-    /* Standard textstorlek för beskrivningen */
     line-height: 1.5;
-    /* Öka radavståndet för bättre läsbarhet */
     margin: 5px 0;
-    /* Litet mellanrum mellan olika textstycken */
 }
 
-#assignToBtn {
+#assignToBtn, #doneBtn, #deleteBtn {
     width: 100%;
     padding: 12px;
     background-color: #4CAF50;
@@ -229,11 +209,15 @@ select[multiple] {
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
 }
 
-#assignToBtn:hover {
+#assignToBtn, #doneBtn:hover {
     background-color: #45a049;
+}
+
+#deleteBtn:hover {
+    background-color: #f44336;
 }
 
 #modal {
