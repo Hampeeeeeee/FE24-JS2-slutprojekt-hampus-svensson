@@ -1,7 +1,6 @@
 {
   "name": "fe24-js2-slutprojekt-hampus-svensson",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html --dist-dir public --public-url ./",
